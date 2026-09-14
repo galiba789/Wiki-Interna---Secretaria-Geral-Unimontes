@@ -61,7 +61,7 @@ Antes de começar, certifique-se de possuir:
 Clone o repositório e entre na pasta do projeto:
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/galiba789/Wiki-Interna---Secretaria-Geral-Unimontes.git
 cd wiki_sec
 ```
 
