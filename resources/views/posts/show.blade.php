@@ -23,6 +23,7 @@
                         <a href="{{ route('posts.create') }}" class="bg-unimontes text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-900 transition shadow-sm">
                             + Novo Tutorial
                         </a>
+                    @endif
                 @endauth
             </div>
         </div>
