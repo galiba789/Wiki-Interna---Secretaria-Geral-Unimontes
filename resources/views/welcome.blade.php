@@ -28,6 +28,7 @@
 
            <div class="flex items-center space-x-4">
                 @auth
+                    <x-suggestion-notifications />
                     <!-- Botão para todos os logados (Admins e Servidores) -->
                     @if(auth()->user()->is_admin || auth()->user()->is_editor)
                         <a href="{{ route('posts.create') }}" class="bg-unimontes text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-900 transition shadow-sm">
@@ -37,6 +38,10 @@
 
                     @if(auth()->user()->is_admin)
                         <a href="{{ url('/admin/dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 ml-2">Painel Admin</a>
+                    @endif
+
+                    @if(auth()->user()->is_admin || auth()->user()->is_editor)
+                        <a href="{{ route('posts.archived') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 ml-2">Arquivados</a>
                     @endif
                     
                     <form method="POST" action="{{ route('logout') }}" class="inline ml-2">
@@ -96,7 +101,9 @@
             <section class="md:col-span-3">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-xl font-bold text-gray-800">
-                        @if(request('search'))
+                        @if($archived ?? false)
+                            Processos arquivados
+                        @elseif(request('search'))
                             Resultados para "{{ request('search') }}"
                         @else
                             Últimos Tutoriais e Processos
@@ -118,7 +125,7 @@
                                     <span class="bg-indigo-50 text-indigo-700 font-semibold px-2.5 py-1 rounded-full">
                                         {{ $post->category->name ?? 'Sem Categoria' }}
                                     </span>
-                                    <span>Atualizado em {{ $post->updated_at->format('d/m/Y H:i') }}</span>
+                                    <span>{{ $post->isArchived() ? 'Arquivado' : 'Atualizado' }} em {{ ($post->archived_at ?? $post->updated_at)->format('d/m/Y H:i') }}</span>
                                 </div>
 
                                 <h3 class="text-lg font-bold text-gray-900 mb-2">
