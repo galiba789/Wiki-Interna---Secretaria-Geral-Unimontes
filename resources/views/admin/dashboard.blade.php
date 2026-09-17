@@ -12,6 +12,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <h1 class="text-xl font-bold text-indigo-600">Painel Administrativo</h1>
             <div class="flex items-center space-x-4">
+                <x-theme-toggle />
                 <x-suggestion-notifications />
                 <a href="{{ url('/') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600">Ver Wiki (Home)</a>
                 <form method="POST" action="{{ route('logout') }}" class="inline">

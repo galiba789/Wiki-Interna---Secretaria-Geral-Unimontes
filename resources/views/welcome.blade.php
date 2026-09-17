@@ -27,6 +27,7 @@
             </div>
 
            <div class="flex items-center space-x-4">
+             <x-theme-toggle />
                 @auth
                     <x-suggestion-notifications />
                     <!-- Botão para todos os logados (Admins e Servidores) -->

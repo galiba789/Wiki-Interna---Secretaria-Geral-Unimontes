@@ -13,6 +13,7 @@
             <a href="{{ url('/') }}" class="font-bold text-indigo-600 hover:underline">← Voltar para a Wiki</a>
             
             <div class="flex space-x-2">
+                <x-theme-toggle />
                 @auth
                     <x-suggestion-notifications />
                     <!-- Aparece só se o usuário for o dono do post ou se for Admin -->

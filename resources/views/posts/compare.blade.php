@@ -10,7 +10,7 @@
     <header class="bg-white shadow-sm">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="{{ route('posts.versions', $post->slug) }}" class="font-bold text-indigo-600">Voltar ao histórico</a>
-            <div class="flex items-center gap-4"><x-suggestion-notifications /><span class="text-sm text-gray-500">{{ $post->title }}</span></div>
+            <div class="flex items-center gap-4"><x-theme-toggle /><x-suggestion-notifications /><span class="text-sm text-gray-500">{{ $post->title }}</span></div>
         </div>
     </header>
 

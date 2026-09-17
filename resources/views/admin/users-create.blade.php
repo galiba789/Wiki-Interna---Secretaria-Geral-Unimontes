@@ -8,6 +8,7 @@
 </head>
 <body class="bg-gray-100 font-sans antialiased text-gray-900 flex items-center justify-center min-h-screen">
 
+    <div class="fixed right-4 top-4"><x-theme-toggle /></div>
     <div class="bg-white p-8 rounded-2xl shadow-sm w-full max-w-md">
         <h1 class="text-xl font-bold text-gray-800 mb-6">Cadastrar Novo Servidor</h1>
 

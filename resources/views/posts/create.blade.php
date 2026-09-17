@@ -23,6 +23,7 @@
     <header class="bg-white shadow-sm">
         <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="{{ url('/') }}" class="font-bold text-indigo-600">← Voltar para a Wiki</a>
+            <x-theme-toggle />
         </div>
     </header>
 

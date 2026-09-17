@@ -10,7 +10,7 @@
     <header class="bg-white shadow-sm">
         <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4">
             <a href="{{ route('suggestions.index') }}" class="font-bold text-indigo-600">Voltar às notificações</a>
-            <x-suggestion-notifications />
+            <div class="flex items-center gap-4"><x-theme-toggle /><x-suggestion-notifications /></div>
         </div>
     </header>
 
