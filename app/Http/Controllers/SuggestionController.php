@@ -14,11 +14,22 @@ class SuggestionController extends Controller
 {
     public function index(): View
     {
+        $isAdmin = auth()->user()->is_admin;
+        $latestNotificationIds = SuggestionNotification::query()
+            ->selectRaw('MAX(suggestion_notifications.id)')
+            ->join('post_suggestions as grouped_suggestions', 'grouped_suggestions.id', '=', 'suggestion_notifications.suggestion_id')
+            ->groupByRaw('COALESCE(grouped_suggestions.parent_id, grouped_suggestions.id)');
+
+        if (! $isAdmin) {
+            $latestNotificationIds->where('suggestion_notifications.user_id', auth()->id());
+        }
+
         $notificationsQuery = SuggestionNotification::query()
             ->with(['suggestion.post', 'suggestion.user', 'suggestion.parent'])
+            ->whereIn('suggestion_notifications.id', $latestNotificationIds)
             ->latest();
 
-        if (! auth()->user()->is_admin) {
+        if (! $isAdmin) {
             $notificationsQuery->where('user_id', auth()->id());
         }
 
@@ -35,6 +46,25 @@ class SuggestionController extends Controller
             'content.required' => 'Escreva a sugestão antes de enviar.',
             'content.max' => 'A sugestão deve ter no máximo 5.000 caracteres.',
         ]);
+
+        $openConversation = $post->suggestions()
+            ->whereNull('parent_id')
+            ->where('user_id', auth()->id())
+            ->where('status', 'open')
+            ->latest()
+            ->first();
+
+        if ($openConversation !== null) {
+            $reply = $openConversation->replies()->create([
+                'post_id' => $post->id,
+                'user_id' => auth()->id(),
+                'content' => $validated['content'],
+            ]);
+
+            $this->notifyParticipants($reply, $openConversation);
+
+            return back()->with('success', 'Resposta enviada em privado.');
+        }
 
         $suggestion = $post->suggestions()->create([
             'user_id' => auth()->id(),
